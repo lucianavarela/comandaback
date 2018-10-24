@@ -17,18 +17,23 @@ class comandaApi extends Comanda implements IApiUsable
 						$pedido->estimacion = $diff->format ('%i minutos');
 					}
 				}
-				$newResponse = $response->withJson($pedidos, 200);  
-				return $newResponse;
+				$objDelaRespuesta = array(
+					'pedidos'=>$pedidos,
+					'status'=>'OK'
+				);
 			} else {
-				$objDelaRespuesta= new stdclass();
-				$objDelaRespuesta->respuesta="Id de Mesa incorrecto para esta comanda.";
-				return $response->withJson($objDelaRespuesta, 401);
+				$objDelaRespuesta = array(
+					'mensaje'=>'Id de Mesa incorrecto para esta comanda.',
+					'status'=>'ERROR'
+				);
 			}
 		} else {
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta="Comanda inexistente.";
-			return $response->withJson($objDelaRespuesta, 401);
+			$objDelaRespuesta = array(
+				'mensaje'=>'Comanda inexistente.',
+				'status'=>'ERROR'
+			);
 		}
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function TraerTodos($request, $response, $args) {
@@ -48,7 +53,8 @@ class comandaApi extends Comanda implements IApiUsable
 		if ($codigo) {
 			if (Pedido::CargarPedidos($ArrayDeParametros, $codigo)) {
 				$objDelaRespuesta = array(
-					'respuesta'=>"Su comanda ha sido ingresada! Codigo de seguimiento: $codigo"
+					'respuesta'=>"Su comanda ha sido ingresada! Codigo de seguimiento: $codigo",
+					'status'=>'OK'
 				);
 				//Cargo el log
 				if ($request->getAttribute('empleado')) {
@@ -58,18 +64,19 @@ class comandaApi extends Comanda implements IApiUsable
 					$new_log->GuardarLog();
 				}
 				//--
-				return $response->withJson($objDelaRespuesta, 200);
 			} else {
 				$objDelaRespuesta = array(
-					'respuesta'=>'Su comanda ha sido ingresada, pero no se han podido cargar los pedidos de esta comanda (faltan campos)'
+					'respuesta'=>'Su comanda ha sido ingresada, pero no se han podido cargar los pedidos de esta comanda (faltan campos)',
+					'status'=>'ERROR'
 				);
 			}
 		} else {
 			$objDelaRespuesta = array(
-				'respuesta'=>"Esta mesa no está cargada en el sistema o está ocupada."
+				'respuesta'=>"Esta mesa no está cargada en el sistema o está ocupada.",
+				'status'=>'ERROR'
 			);
 		}
-		return $response->withJson($objDelaRespuesta, 401);
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function CargarFoto($request, $response, $args) {
@@ -83,15 +90,18 @@ class comandaApi extends Comanda implements IApiUsable
 			$extension=array_reverse($extension);
 			$comanda->foto = $comanda->codigo.".".$extension[0];
 			$comanda->GuardarComanda();
-			$archivos['foto']->moveTo($destino.$comanda->codigo.".".$extension[0]);		
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta="Foto cargada!";
-			return $response->withJson($objDelaRespuesta, 200);
+			$archivos['foto']->moveTo($destino.$comanda->codigo.".".$extension[0]);
+			$objDelaRespuesta = array(
+				'respuesta'=>"Foto cargada.",
+				'status'=>'OK'
+			);
 		} else {
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta="No se pudo encontrar su comanda en el sistema";
-			return $response->withJson($objDelaRespuesta, 401);
+			$objDelaRespuesta = array(
+				'respuesta'=>"No se pudo encontrar su comanda en el sistema.",
+				'status'=>'ERROR'
+			);
 		}
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function BorrarUno($request, $response, $args) {
@@ -109,12 +119,17 @@ class comandaApi extends Comanda implements IApiUsable
 				$new_log->GuardarLog();
 			}
 			//--
-			$objDelaRespuesta->respuesta="Comanda eliminada";
-			return $response->withJson($objDelaRespuesta, 200);
+			$objDelaRespuesta = array(
+				'respuesta'=>"Comanda eliminada.",
+				'status'=>'OK'
+			);
 		} else {
-			$objDelaRespuesta->respuesta="Error eliminando la comanda";
-			return $response->withJson($objDelaRespuesta, 400);
+			$objDelaRespuesta = array(
+				'respuesta'=>"Error eliminando la comanda.",
+				'status'=>'ERROR'
+			);
 		}
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function ModificarUno($request, $response, $args) {
@@ -152,17 +167,22 @@ class comandaApi extends Comanda implements IApiUsable
 					$new_log->GuardarLog();
 				}
 				//--
-				$objDelaRespuesta= new stdclass();
-				$objDelaRespuesta->respuesta="Clientes pagando";
-				return $response->withJson($objDelaRespuesta, 200);
+				$objDelaRespuesta = array(
+					'respuesta'=>"Clientes pagando.",
+					'status'=>'OK'
+				);
 			} else {
-				$objDelaRespuesta= new stdclass();
-				$objDelaRespuesta->respuesta=$respuesta;
-				return $response->withJson($objDelaRespuesta, 401);
+				$objDelaRespuesta = array(
+					'respuesta'=>$respuesta,
+					'status'=>'ERROR'
+				);
 			}
+		} else {
+			$objDelaRespuesta = array(
+				'respuesta'=>'Error encontrando la comanda seleccionada.',
+				'status'=>'ERROR'
+			);
 		}
-		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="Error encontrando la comanda seleccionada";
-		return $response->withJson($objDelaRespuesta, 401);
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 }

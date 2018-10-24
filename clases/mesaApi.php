@@ -50,12 +50,17 @@ class mesaApi extends Mesa implements IApiUsable
 				$new_log->GuardarLog();
 			}
 			//--
-			$objDelaRespuesta->respuesta="Mesa eliminada";
-			return $response->withJson($objDelaRespuesta, 200);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Mesa eliminada.',
+                'status'=>'OK'
+            );
 		} else {
-			$objDelaRespuesta->respuesta="Error eliminando la mesa";
-			return $response->withJson($objDelaRespuesta, 400);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Error eliminando la mesa.',
+                'status'=>'ERROR'
+            );
 		}
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 		
 	public function ModificarUno($request, $response, $args) {
@@ -90,21 +95,27 @@ class mesaApi extends Mesa implements IApiUsable
 					$new_log->GuardarLog();
 				}
 				//--
-				$objDelaRespuesta= new stdclass();
-				$objDelaRespuesta->respuesta="Mesa cerrada";
-				return $response->withJson($objDelaRespuesta, 200);
+				$objDelaRespuesta = array(
+					'mensaje'=>'Mesa cerrada.',
+					'status'=>'OK'
+				);
 			} else if ($mesa->estado == "cerrada") {
-				$objDelaRespuesta= new stdclass();
-				$objDelaRespuesta->respuesta="Esta mesa ya esta cerrada";
-				return $response->withJson($objDelaRespuesta, 401);
+				$objDelaRespuesta = array(
+					'mensaje'=>'Esta mesa ya esta cerrada.',
+					'status'=>'ERROR'
+				);
 			} else {
-				$objDelaRespuesta= new stdclass();
-				$objDelaRespuesta->respuesta="Esta mesa tiene comensales";
-				return $response->withJson($objDelaRespuesta, 401);
+				$objDelaRespuesta = array(
+					'mensaje'=>'Esta mesa tiene comensales.',
+					'status'=>'ERROR'
+				);
 			}
+		} else {
+			$objDelaRespuesta = array(
+                'mensaje'=>'Error encontrando la mesa seleccionada.',
+                'status'=>'ERROR'
+            );
 		}
-		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="Error encontrando la mesa seleccionada";
-		return $response->withJson($objDelaRespuesta, 401);
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 }

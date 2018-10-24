@@ -38,27 +38,34 @@ class empleadoApi extends Empleado implements IApiUsable
 						$new_log->GuardarLog();
 					}
 					//--
-					$objDelaRespuesta= new stdclass();
-					$objDelaRespuesta->respuesta="Empleado deshabilitado";
-					return $response->withJson($objDelaRespuesta, 200);
+					$objDelaRespuesta = array(
+						'mensaje'=>'Empleado deshabilitado',
+						'status'=>'OK'
+					);
 				} else if ($empleado->estado == "ocupado") {
-					$objDelaRespuesta= new stdclass();
-					$objDelaRespuesta->respuesta="Este empleado esta ocupado en este momento.";
-					return $response->withJson($objDelaRespuesta, 401);
+					$objDelaRespuesta = array(
+						'mensaje'=>'Este empleado esta ocupado en este momento.',
+						'status'=>'ERROR'
+					);
 				} else {
-					$objDelaRespuesta= new stdclass();
-					$objDelaRespuesta->respuesta="Este empleado ya esta deshabilitado.";
-					return $response->withJson($objDelaRespuesta, 401);
+					$objDelaRespuesta = array(
+						'mensaje'=>'Este empleado ya esta deshabilitado.',
+						'status'=>'ERROR'
+					);
 				}
 			} else {
-				$objDelaRespuesta= new stdclass();
-				$objDelaRespuesta->respuesta="No puede deshabilitarse a usted mismo.";
-				return $response->withJson($objDelaRespuesta, 401);
+				$objDelaRespuesta = array(
+					'mensaje'=>'No puede deshabilitarse a usted mismo.',
+					'status'=>'ERROR'
+				);
 			}
+		} else {
+			$objDelaRespuesta = array(
+				'mensaje'=>'Error buscando al empleado.',
+				'status'=>'ERROR'
+			);
 		}
-		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="Error buscando al empleado";
-		return $response->withJson($objDelaRespuesta, 401);
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function ActivarUno($request, $response, $args) {
@@ -76,18 +83,23 @@ class empleadoApi extends Empleado implements IApiUsable
 					$new_log->GuardarLog();
 				}
 				//--
-				$objDelaRespuesta= new stdclass();
-				$objDelaRespuesta->respuesta="Empleado activado!";
-				return $response->withJson($objDelaRespuesta, 200);
+				$objDelaRespuesta = array(
+					'mensaje'=>'Empleado activado.',
+					'status'=>'OK'
+				);
 			} else {
-				$objDelaRespuesta= new stdclass();
-				$objDelaRespuesta->respuesta="Este empleado ya esta activo.";
-				return $response->withJson($objDelaRespuesta, 401);
+				$objDelaRespuesta = array(
+					'mensaje'=>'Este empleado ya esta activo.',
+					'status'=>'ERROR'
+				);
 			}
+		} else {
+			$objDelaRespuesta = array(
+				'mensaje'=>'Error buscando al empleado.',
+				'status'=>'ERROR'
+			);
 		}
-		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="Error buscando al empleado";
-		return $response->withJson($objDelaRespuesta, 401);
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function TomarUnPedido($request, $response, $args) {
@@ -105,18 +117,23 @@ class empleadoApi extends Empleado implements IApiUsable
 					$new_log->GuardarLog();
 				}
 				//--
-				$objDelaRespuesta= new stdclass();
-				$objDelaRespuesta->respuesta=$respuesta;
-				return $response->withJson($objDelaRespuesta, 200);
+				$objDelaRespuesta = array(
+					'mensaje'=>$respuesta,
+					'status'=>'OK'
+				);
 			} else {
-				$objDelaRespuesta= new stdclass();
-				$objDelaRespuesta->respuesta="No puede tomar un pedido en estado ocupado o deshabilitado";
-				return $response->withJson($objDelaRespuesta, 401);
+				$objDelaRespuesta = array(
+					'mensaje'=>'No puede tomar un pedido en estado ocupado o deshabilitado.',
+					'status'=>'ERROR'
+				);
 			}
+		} else {
+			$objDelaRespuesta = array(
+				'mensaje'=>'Error, campos faltantes.',
+				'status'=>'ERROR'
+			);
 		}
-		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="Error, campos faltantes";
-		return $response->withJson($objDelaRespuesta, 401);
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function EntregarUnPedido($request, $response, $args) {
@@ -131,13 +148,17 @@ class empleadoApi extends Empleado implements IApiUsable
 				$new_log->GuardarLog();
 			}
 			//--
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta=$respuesta;
-			return $response->withJson($objDelaRespuesta, 200);
+			$objDelaRespuesta = array(
+				'mensaje'=>$respuesta,
+				'status'=>'OK'
+			);
+		} else {
+			$objDelaRespuesta = array(
+				'mensaje'=>"Debe ingresar el numero del pedido",
+				'status'=>'ERROR'
+			);
 		}
-		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="Debe ingresar el numero del pedido";
-		return $response->withJson($objDelaRespuesta, 401);
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function CargarUno($request, $response, $args) {
@@ -157,8 +178,10 @@ class empleadoApi extends Empleado implements IApiUsable
 			$new_log->GuardarLog();
 		}
 		//--
-		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="Se ha ingresado el empleado";
+		$objDelaRespuesta = array(
+			'mensaje'=>"Se ha ingresado el empleado",
+			'status'=>'OK'
+		);
 		return $response->withJson($objDelaRespuesta, 200);
 	}
 
@@ -177,12 +200,17 @@ class empleadoApi extends Empleado implements IApiUsable
 				$new_log->GuardarLog();
 			}
 			//--
-			$objDelaRespuesta->respuesta="Empleado eliminado";
-			return $response->withJson($objDelaRespuesta, 200);
+			$objDelaRespuesta = array(
+				'mensaje'=>"Empleado eliminado.",
+				'status'=>'OK'
+			);
 		} else {
-			$objDelaRespuesta->respuesta="Error eliminando el empleado";
-			return $response->withJson($objDelaRespuesta, 400);
+			$objDelaRespuesta = array(
+				'mensaje'=>"Error eliminando el empleado.",
+				'status'=>'ERROR'
+			);
 		}
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 		
 	public function ModificarUno($request, $response, $args) {
@@ -203,8 +231,10 @@ class empleadoApi extends Empleado implements IApiUsable
 			$new_log->GuardarLog();
 		}
 		//--
-		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="Empleado modificado";
+		$objDelaRespuesta = array(
+			'mensaje'=>"Empleado modificado.",
+			'status'=>'OK'
+		);
 		return $response->withJson($objDelaRespuesta, 200);	
 	}
 }

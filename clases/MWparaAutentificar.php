@@ -17,7 +17,6 @@ class MWparaAutentificar
    */
 	public function VerificarUsuario($request, $response, $next) {
 		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="";
 		$objDelaRespuesta->esValido=false;
 		if($request->isGet() || $request->isPost()) {
 			$arrayConToken = $request->getHeader('token');
@@ -56,18 +55,20 @@ class MWparaAutentificar
 				}
 				else
 				{
-					$objDelaRespuesta->respuesta="Solo socios";
+					$objDelaRespuesta = array(
+						'status'=>'ERROR',
+						'mensaje'=>"Solo socios"
+					);
+					return $response->withJson($objDelaRespuesta, 200);
 				}
 			} else {
-				$objDelaRespuesta->respuesta="Solo usuarios registrados";
-				$objDelaRespuesta->elToken=$token;
+				$objDelaRespuesta = array(
+					'status'=>'ERROR',
+					'mensaje'=>"Solo usuarios registrados"
+				);
+				return $response->withJson($objDelaRespuesta, 200);
 			}
 		}
-        
-        if($objDelaRespuesta->respuesta!="") {
-			$nueva=$response->withJson($objDelaRespuesta, 401);
-			return $nueva;
-        }
 
         return $response;
 	}
@@ -75,7 +76,6 @@ class MWparaAutentificar
 	public function VerificarToken($request, $response, $next) {
         
 		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="";
 		$arrayConToken = $request->getHeader('token');
 		$token=$arrayConToken[0];
 		$objDelaRespuesta->esValido=true;
@@ -92,81 +92,72 @@ class MWparaAutentificar
 			$request = $request->withAttribute('empleado', $payload);
 			$response = $next($request, $response);
 		} else {
-			$objDelaRespuesta->respuesta="Por favor logueese para realizar esta accion!";
-			$objDelaRespuesta->elToken=$token;
+			$objDelaRespuesta = array(
+				'status'=>'ERROR',
+				'mensaje'=>"Por favor logueese para realizar esta accion."
+			);
+			return $response->withJson($objDelaRespuesta, 200);
 		}
-        
-        if($objDelaRespuesta->respuesta!="") {
-			$nueva=$response->withJson($objDelaRespuesta, 401);
-			return $nueva;
-        }
 
         return $response;
 	}
 
 	public function VerificarAdmin($request, $response, $next) {
 		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="";
 		$sector = $request->getAttribute('empleado')->sector;
 		if($sector == "management") {
 			$response = $next($request, $response);
 		}
 		else
 		{
-			$objDelaRespuesta->respuesta="Solo socios";
+			$objDelaRespuesta = array(
+				'status'=>'ERROR',
+				'mensaje'=>"Solo socios."
+			);
+			return $response->withJson($objDelaRespuesta, 200);
 		}
         
-        if($objDelaRespuesta->respuesta!="") {
-			$nueva=$response->withJson($objDelaRespuesta, 401);
-			return $nueva;
-        }
-
         return $response;
 	}
 
 	public function VerificarEmpleado($request, $response, $next) {
 		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="";
 		$sector = $request->getAttribute('empleado')->sector;
 		if($sector == "barra" || $sector == "cerveza" || $sector == "cocina" || $sector == "candy") {
 			$response = $next($request, $response);
 		}
 		else
 		{
-			$objDelaRespuesta->respuesta="Solo empleados";
+			$objDelaRespuesta = array(
+				'status'=>'ERROR',
+				'mensaje'=>"Solo empleados."
+			);
+			return $response->withJson($objDelaRespuesta, 200);
 		}
-        
-        if($objDelaRespuesta->respuesta!="") {
-			$nueva=$response->withJson($objDelaRespuesta, 401);
-			return $nueva;
-        }
 
         return $response;
 	}
 
 	public function VerificarMozo($request, $response, $next) {
 		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="";
 		$sector = $request->getAttribute('empleado')->sector;
 		if($sector == "mozo") {
 			$response = $next($request, $response);
 		}
 		else
 		{
-			$objDelaRespuesta->respuesta="Solo mozos";
+			$objDelaRespuesta = array(
+				'status'=>'ERROR',
+				'mensaje'=>"Solo mozos."
+			);
+			return $response->withJson($objDelaRespuesta, 200);
 		}
-        
-        if($objDelaRespuesta->respuesta!="") {
-			$nueva=$response->withJson($objDelaRespuesta, 401);
-			return $nueva;
-        }
 
         return $response;
 	}
 	
 	public function FiltrarSueldos($request, $response, $next) {
 		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="";
 		$objDelaRespuesta->esValido=false;
 		$arrayConToken = $request->getHeader('token');
 		if(sizeof($arrayConToken) > 0) {
@@ -207,18 +198,12 @@ class MWparaAutentificar
 			$nueva=$response->withJson($empleados, 200);
 			return $nueva;
 		}
-        
-        if($objDelaRespuesta->respuesta!="") {
-			$nueva=$response->withJson($objDelaRespuesta, 401);
-			return $nueva;
-        }
 		
         return $response;
 	}
 	
 	public function FiltrarPedidos($request, $response, $next) {
 		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="";
 		$usuarioEmpleado = $request->getAttribute('empleado')->usuario;
 		$sector = $request->getAttribute('empleado')->sector;
 		if($sector == "barra" || $sector == "cerveza" || $sector == "cocina" || $sector == "candy") {
@@ -258,13 +243,12 @@ class MWparaAutentificar
 			$response = $next($request, $response);
 			return $response;
 		} else {
-			$objDelaRespuesta->respuesta="Solo usuarios";
+			$objDelaRespuesta = array(
+				'status'=>'ERROR',
+				'mensaje'=>"Solo usuarios."
+			);
+			return $response->withJson($objDelaRespuesta, 200);
 		}
-        
-        if($objDelaRespuesta->respuesta!="") {
-			$nueva=$response->withJson($objDelaRespuesta, 401);
-			return $nueva;
-        }
 
         return $response;
 	}

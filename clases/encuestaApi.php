@@ -36,14 +36,17 @@ class encuestaApi extends Encuesta implements IApiUsable
 				$new_log->GuardarLog();
 			}
 			//--
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta="Gracias por realizar nuestra encuestra!";
-			return $response->withJson($objDelaRespuesta, 200);		
+			$objDelaRespuesta = array(
+                'mensaje'=>'Gracias por realizar nuestra encuestra.',
+                'status'=>'OK'
+            );
 		} else {
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta="Codigo de comanda inexistente!";
-			return $response->withJson($objDelaRespuesta, 400);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Codigo de comanda inexistente.',
+                'status'=>'ERROR'
+            );
 		}
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function BorrarUno($request, $response, $args) {
@@ -61,12 +64,17 @@ class encuestaApi extends Encuesta implements IApiUsable
 		//--
 		$objDelaRespuesta= new stdclass();
 		if($cantidadDeBorrados>0) {
-			$objDelaRespuesta->respuesta="Encuesta eliminada";
-			return $response->withJson($objDelaRespuesta, 200);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Encuesta eliminada.',
+                'status'=>'OK'
+            );
 		} else {
-			$objDelaRespuesta->respuesta="Error eliminando la encuesta";
-			return $response->withJson($objDelaRespuesta, 400);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Error eliminando la encuesta.',
+                'status'=>'ERROR'
+            );
 		}
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function ModificarUno($request, $response, $args) {

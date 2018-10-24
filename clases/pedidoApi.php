@@ -28,13 +28,17 @@ class pedidoApi extends Pedido implements IApiUsable
 				$new_log->GuardarLog();
 			}
 			//--
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta=$respuesta;
-			return $response->withJson($objDelaRespuesta, 200);
+			$objDelaRespuesta = array(
+                'mensaje'=>$respuesta,
+                'status'=>'OK'
+            );
+		} else {
+			$objDelaRespuesta = array(
+                'mensaje'=>'Debe ingresar el numero del pedido.',
+                'status'=>'ERROR'
+            );
 		}
-		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta='Debe ingresar el numero del pedido';
-		return $response->withJson($objDelaRespuesta, 401);
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function CancelarUno($request, $response, $args) {
@@ -49,13 +53,17 @@ class pedidoApi extends Pedido implements IApiUsable
 				$new_log->GuardarLog();
 			}
 			//--
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta=$respuesta;
-			return $response->withJson($objDelaRespuesta, 200);
+			$objDelaRespuesta = array(
+                'mensaje'=>$respuesta,
+                'status'=>'OK'
+            );
+		} else {
+			$objDelaRespuesta = array(
+                'mensaje'=>'Debe ingresar el numero del pedido',
+                'status'=>'ERROR'
+            );
 		}
-		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta='Debe ingresar el numero del pedido';
-		return $response->withJson($objDelaRespuesta, 401);
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function CargarUno($request, $response, $args) {
@@ -76,14 +84,17 @@ class pedidoApi extends Pedido implements IApiUsable
 				$new_log->GuardarLog();
 			}
 			//--
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta='Se guardo el pedido';
-			return $response->withJson($objDelaRespuesta, 200);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Se guardo el pedido',
+                'status'=>'OK'
+            );
 		} else {
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta='Codigo de comanda inexistente';
-			return $response->withJson($objDelaRespuesta, 401);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Codigo de comanda inexistente',
+                'status'=>'ERROR'
+            );
 		}
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function BorrarUno($request, $response, $args) {
@@ -100,12 +111,17 @@ class pedidoApi extends Pedido implements IApiUsable
 				$new_log->GuardarLog();
 			}
 			//--
-			$objDelaRespuesta->respuesta="Pedido eliminado";
-			return $response->withJson($objDelaRespuesta, 200);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Pedido eliminado',
+                'status'=>'OK'
+            );
 		} else {
-			$objDelaRespuesta->respuesta="Error eliminando el pedido";
-			return $response->withJson($objDelaRespuesta, 400);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Error eliminando el pedido',
+                'status'=>'ERROR'
+            );
 		}
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function ModificarUno($request, $response, $args) {
@@ -125,13 +141,16 @@ class pedidoApi extends Pedido implements IApiUsable
 				$new_log->GuardarLog();
 			}
 			//--
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta='Pedido modificado';
-			return $response->withJson($objDelaRespuesta, 200);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Pedido modificado',
+                'status'=>'OK'
+            );
 		} else {
-			$objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta='Codigo de pedido inexistente';
-			return $response->withJson($objDelaRespuesta, 401);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Codigo de pedido inexistente',
+                'status'=>'ERROR'
+            );
 		}
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 }

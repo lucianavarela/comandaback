@@ -27,7 +27,10 @@ class logApi extends Log implements IApiUsable
 		$milog->accion=$accion;
 		$milog->InsertarLog();
 		$objDelaRespuesta= new stdclass();
-		$objDelaRespuesta->respuesta="Se guardo el log";
+		$objDelaRespuesta = array(
+			'mensaje'=>"Se guardo el log",
+			'status'=>'OK'
+		);
 		return $response->withJson($objDelaRespuesta, 200);
 	}
 
@@ -39,12 +42,17 @@ class logApi extends Log implements IApiUsable
 		
 		$objDelaRespuesta= new stdclass();
 		if($cantidadDeBorrados>0) {
-			$objDelaRespuesta->respuesta="Log eliminado";
-			return $response->withJson($objDelaRespuesta, 200);
+			$objDelaRespuesta = array(
+				'mensaje'=>"Log eliminado",
+				'status'=>'OK'
+			);
 		} else {
-			$objDelaRespuesta->respuesta="Error eliminando el log";
-			return $response->withJson($objDelaRespuesta, 400);
+			$objDelaRespuesta = array(
+				'mensaje'=>"Error eliminando el log",
+				'status'=>'ERROR'
+			);
 		}
+		return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function ModificarUno($request, $response, $args) {

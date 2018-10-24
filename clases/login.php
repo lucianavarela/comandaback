@@ -8,16 +8,14 @@ class Login
             $token = AutentificadorJWT::CrearToken($empleado);
             $objDelaRespuesta = array(
                 'token'=>$token,
-                'usuario'=>$empleado->usuario,
-                'sector'=>$empleado->sector
+                'status'=>'OK'
             );
-            return $response->withJson($objDelaRespuesta, 200);
         } else {
 			$objDelaRespuesta = array(
                 'mensaje'=>'Usuario inexistente',
-                'status'=>'OK'
+                'status'=>'ERROR'
             );
-            return $response->withJson($objDelaRespuesta, 200);
         }
+        return $response->withJson($objDelaRespuesta, 200);
     }
 }
