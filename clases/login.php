@@ -13,9 +13,11 @@ class Login
             );
             return $response->withJson($objDelaRespuesta, 200);
         } else {
-            $objDelaRespuesta= new stdclass();
-			$objDelaRespuesta->respuesta='Usuario inexistente';
-            return $response->withJson($objDelaRespuesta, 401);
+			$objDelaRespuesta = array(
+                'mensaje'=>'Usuario inexistente',
+                'status'=>'OK'
+            );
+            return $response->withJson($objDelaRespuesta, 200);
         }
     }
 }
