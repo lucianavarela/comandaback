@@ -30,7 +30,6 @@ class MWparaAutentificar
 					$objDelaRespuesta->esValido=false;
 				}
 			}
-			var_dump($objDelaRespuesta);
 			if($objDelaRespuesta->esValido) {
 				$payload=AutentificadorJWT::ObtenerData($token);
 				$request = $request->withAttribute('empleado', $payload);

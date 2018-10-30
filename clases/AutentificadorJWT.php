@@ -81,6 +81,7 @@ class AutentificadorJWT
         $aud .= @$_SERVER['HTTP_USER_AGENT'];
         $aud .= gethostname();
 
+        var_dump($_SERVER);
         var_dump($aud);
         var_dump(sha1($aud));
         return sha1($aud);
