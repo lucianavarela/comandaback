@@ -23,13 +23,12 @@ class MWparaAutentificar
 			if($arrayConToken) {
 				$token=$arrayConToken[0];
 				try {
-					AutentificadorJWT::verificarToken($token);
+					AutentificadorJWT::VerificarToken($token);
 					$objDelaRespuesta->esValido=true;
 				} catch (Exception $e) {
 					$objDelaRespuesta->excepcion=$e->getMessage();
 					$objDelaRespuesta->esValido=false;
 				}
-				var_dump($objDelaRespuesta);
 			}
 			if($objDelaRespuesta->esValido) {
 				$payload=AutentificadorJWT::ObtenerData($token);
@@ -43,7 +42,7 @@ class MWparaAutentificar
             $objDelaRespuesta->esValido=true;
             
 			try {
-				AutentificadorJWT::verificarToken($token);
+				AutentificadorJWT::VerificarToken($token);
 				$objDelaRespuesta->esValido=true;
 			} catch (Exception $e) {
 				$objDelaRespuesta->excepcion=$e->getMessage();
@@ -83,7 +82,7 @@ class MWparaAutentificar
 		$objDelaRespuesta->esValido=true;
 		
 		try {
-			AutentificadorJWT::verificarToken($token);
+			AutentificadorJWT::VerificarToken($token);
 			$objDelaRespuesta->esValido=true;
 		} catch (Exception $e) {
 			$objDelaRespuesta->excepcion=$e->getMessage();
@@ -165,7 +164,7 @@ class MWparaAutentificar
 		if(sizeof($arrayConToken) > 0) {
 			$token=$arrayConToken[0];
 			try {
-				AutentificadorJWT::verificarToken($token);
+				AutentificadorJWT::VerificarToken($token);
 				$objDelaRespuesta->esValido=true;
 			} catch (Exception $e) {
 				$objDelaRespuesta->excepcion=$e->getMessage();
