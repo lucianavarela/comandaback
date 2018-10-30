@@ -41,8 +41,7 @@ class AutentificadorJWT
         } catch (ExpiredException $e) {
            throw new Exception("Clave fuera de tiempo");
         }
-        var_dump($decodificado->aud);
-        var_dump(self::Aud());
+        
         // si no da error,  verifico los datos de AUD que uso para saber de que lugar viene  
         if($decodificado->aud !== self::Aud())
         {
