@@ -19,6 +19,7 @@ class MWparaAutentificar
 		$objDelaRespuesta= new stdclass();
 		$objDelaRespuesta->esValido=false;
 		if($request->isGet() || $request->isPost()) {
+			var_dump($request->getHeaders());
 			$arrayConToken = $request->getHeader('Authorization');
 			if($arrayConToken) {
 				$token=$arrayConToken[0];
