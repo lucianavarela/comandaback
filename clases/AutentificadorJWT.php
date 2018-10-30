@@ -40,12 +40,14 @@ class AutentificadorJWT
             self::$tipoEncriptacion
             );
         } catch (ExpiredException $e) {
+            var_dump('1');
            throw new Exception("Clave fuera de tiempo");
         }
         
         // si no da error,  verifico los datos de AUD que uso para saber de que lugar viene  
         if($decodificado->aud !== self::Aud())
         {
+            var_dump('2');
             throw new Exception("No es el usuario valido");
         }
     }
