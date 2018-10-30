@@ -27,7 +27,6 @@ class AutentificadorJWT
     
     public static function VerificarToken($token)
     {
-       var_dump($token);
         if(empty($token)|| $token=="")
         {
             throw new Exception("El token esta vacio.");
@@ -40,14 +39,12 @@ class AutentificadorJWT
             self::$tipoEncriptacion
             );
         } catch (ExpiredException $e) {
-            var_dump('1');
            throw new Exception("Clave fuera de tiempo");
         }
         
         // si no da error,  verifico los datos de AUD que uso para saber de que lugar viene  
         if($decodificado->aud !== self::Aud())
         {
-            var_dump('2');
             throw new Exception("No es el usuario valido");
         }
     }
@@ -83,7 +80,9 @@ class AutentificadorJWT
         
         $aud .= @$_SERVER['HTTP_USER_AGENT'];
         $aud .= gethostname();
-        
+
+        var_dump($aud);
+        var_dump(sha1($aud));
         return sha1($aud);
     }
 }
