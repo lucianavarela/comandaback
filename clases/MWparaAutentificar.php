@@ -19,8 +19,7 @@ class MWparaAutentificar
 		$objDelaRespuesta= new stdclass();
 		$objDelaRespuesta->esValido=false;
 		if($request->isGet() || $request->isPost()) {
-			var_dump($request->getHeaders());
-			$arrayConToken = $request->getHeader('Authorization');
+			$arrayConToken = $request->getHeader('HTTP_AUTHORIZATION');
 			if($arrayConToken) {
 				$token=$arrayConToken[0];
 				try {
@@ -37,7 +36,7 @@ class MWparaAutentificar
 			}
             $response = $next($request, $response);
 		} else {
-            $arrayConToken = $request->getHeader('Authorization');
+            $arrayConToken = $request->getHeader('HTTP_AUTHORIZATION');
             $token=$arrayConToken[0];
             $objDelaRespuesta->esValido=true;
             
@@ -77,7 +76,7 @@ class MWparaAutentificar
 	public function VerificarToken($request, $response, $next) {
         
 		$objDelaRespuesta= new stdclass();
-		$arrayConToken = $request->getHeader('Authorization');
+		$arrayConToken = $request->getHeader('HTTP_AUTHORIZATION');
 		$token=$arrayConToken[0];
 		$objDelaRespuesta->esValido=true;
 		
@@ -160,7 +159,7 @@ class MWparaAutentificar
 	public function FiltrarSueldos($request, $response, $next) {
 		$objDelaRespuesta= new stdclass();
 		$objDelaRespuesta->esValido=false;
-		$arrayConToken = $request->getHeader('Authorization');
+		$arrayConToken = $request->getHeader('HTTP_AUTHORIZATION');
 		if(sizeof($arrayConToken) > 0) {
 			$token=$arrayConToken[0];
 			try {
