@@ -22,6 +22,7 @@ class MWparaAutentificar
 			$arrayConToken = $request->getHeader('HTTP_AUTHORIZATION');
 			if($arrayConToken) {
 				$token=$arrayConToken[0];
+				var_dump($token);
 				try {
 					AutentificadorJWT::verificarToken($token);
 					$objDelaRespuesta->esValido=true;
@@ -32,6 +33,7 @@ class MWparaAutentificar
 			}
 			if($objDelaRespuesta->esValido) {
 				$payload=AutentificadorJWT::ObtenerData($token);
+				var_dump($payload);
 				$request = $request->withAttribute('empleado', $payload);
 			}
             $response = $next($request, $response);
