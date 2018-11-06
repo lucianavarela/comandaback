@@ -12,14 +12,14 @@ class AutentificadorJWT
         /*
          parametros del payload
          https://tools.ietf.org/html/rfc7519#section-4.1
-         + los que quieras ej="'app'=> "API REST CD 2017" 
+         + los que quieras ej="'app'=> "API REST MI COMANDA" 
         */
         $payload = array(
         	'iat'=>$ahora,
             'exp' => $ahora + (60*60),
             'aud' => self::Aud(),
             'data' => $datos,
-            'app'=> "API REST CD 2017"
+            'app'=> "API REST MI COMANDA"
         );
      
         return JWT::encode($payload, self::$claveSecreta);
