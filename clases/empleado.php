@@ -290,7 +290,7 @@ class Empleado
         
         //9h
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT id,puntosMozo,puntosMesa,puntosRestaurante,puntosCocinero, (AVG(puntosMozo)+AVG(puntosMesa)+AVG(puntosRestaurante)+AVG(puntosCocinero))/4 as promedio, comentario
+            "SELECT id,puntosMozo,puntosMesa,puntosRestaurante,puntosCocinero, ROUND((AVG(puntosMozo)+AVG(puntosMesa)+AVG(puntosRestaurante)+AVG(puntosCocinero))/4, 2) as promedio, comentario
             FROM encuestas GROUP BY id HAVING promedio > 5"
         );
         $consulta->execute();
@@ -312,7 +312,7 @@ class Empleado
 
         //9i
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT id,puntosMozo,puntosMesa,puntosRestaurante,puntosCocinero, (AVG(puntosMozo)+AVG(puntosMesa)+AVG(puntosRestaurante)+AVG(puntosCocinero))/4 as promedio, comentario
+            "SELECT id,puntosMozo,puntosMesa,puntosRestaurante,puntosCocinero, ROUND((AVG(puntosMozo)+AVG(puntosMesa)+AVG(puntosRestaurante)+AVG(puntosCocinero))/4, 2) as promedio, comentario
             FROM encuestas GROUP BY id HAVING promedio <= 5"
         );
         $consulta->execute();
