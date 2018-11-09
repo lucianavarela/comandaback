@@ -300,10 +300,10 @@ class Empleado
             foreach($resultado as $row) {
                 $rowObj = new stdclass();
                 $rowObj->promedio = $row['promedio'];
-                $rowObj->puntosRestaurante = $row['puntosRestaurante'];
-                $rowObj->puntosMozo = $row['puntosMozo'];
-                $rowObj->puntosMesa = $row['puntosMesa'];
-                $rowObj->puntosCocinero = $row['puntosCocinero'];
+                $rowObj->Restaurante = $row['puntosRestaurante'];
+                $rowObj->Mozo = $row['puntosMozo'];
+                $rowObj->Mesa = $row['puntosMesa'];
+                $rowObj->Cocinero = $row['puntosCocinero'];
                 $rowObj->comentario = $row['comentario'];
                 array_push($rows, $rowObj);
             }
@@ -322,10 +322,10 @@ class Empleado
             foreach($resultado as $row) {
                 $rowObj = new stdclass();
                 $rowObj->promedio = $row['promedio'];
-                $rowObj->puntosRestaurante = $row['puntosRestaurante'];
-                $rowObj->puntosMozo = $row['puntosMozo'];
-                $rowObj->puntosMesa = $row['puntosMesa'];
-                $rowObj->puntosCocinero = $row['puntosCocinero'];
+                $rowObj->Restaurante = $row['puntosRestaurante'];
+                $rowObj->Mozo = $row['puntosMozo'];
+                $rowObj->Mesa = $row['puntosMesa'];
+                $rowObj->Cocinero = $row['puntosCocinero'];
                 $rowObj->comentario = $row['comentario'];
                 array_push($rows, $rowObj);
             }
