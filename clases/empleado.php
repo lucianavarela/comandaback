@@ -290,7 +290,7 @@ class Empleado
         
         //9h
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT id, (AVG(puntosMozo)+AVG(puntosMesa)+AVG(puntosRestaurante)+AVG(puntosCocinero))/4 as promedio, comentario
+            "SELECT id,puntosMozo,puntosMesa,puntosRestaurante,puntosCocinero, (AVG(puntosMozo)+AVG(puntosMesa)+AVG(puntosRestaurante)+AVG(puntosCocinero))/4 as promedio, comentario
             FROM encuestas GROUP BY id HAVING promedio > 5"
         );
         $consulta->execute();
@@ -299,7 +299,11 @@ class Empleado
             $rows = array();
             foreach($resultado as $row) {
                 $rowObj = new stdclass();
-                $rowObj->id = $row['id'];
+                $rowObj->promedio = $row['promedio'];
+                $rowObj->puntosRestaurante = $row['puntosRestaurante'];
+                $rowObj->puntosMozo = $row['puntosMozo'];
+                $rowObj->puntosMesa = $row['puntosMesa'];
+                $rowObj->puntosCocinero = $row['puntosCocinero'];
                 $rowObj->comentario = $row['comentario'];
                 array_push($rows, $rowObj);
             }
@@ -308,7 +312,7 @@ class Empleado
 
         //9i
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT id, (AVG(puntosMozo)+AVG(puntosMesa)+AVG(puntosRestaurante)+AVG(puntosCocinero))/4 as promedio, comentario
+            "SELECT id,puntosMozo,puntosMesa,puntosRestaurante,puntosCocinero, (AVG(puntosMozo)+AVG(puntosMesa)+AVG(puntosRestaurante)+AVG(puntosCocinero))/4 as promedio, comentario
             FROM encuestas GROUP BY id HAVING promedio <= 5"
         );
         $consulta->execute();
@@ -317,7 +321,11 @@ class Empleado
             $rows = array();
             foreach($resultado as $row) {
                 $rowObj = new stdclass();
-                $rowObj->id = $row['id'];
+                $rowObj->promedio = $row['promedio'];
+                $rowObj->puntosRestaurante = $row['puntosRestaurante'];
+                $rowObj->puntosMozo = $row['puntosMozo'];
+                $rowObj->puntosMesa = $row['puntosMesa'];
+                $rowObj->puntosCocinero = $row['puntosCocinero'];
                 $rowObj->comentario = $row['comentario'];
                 array_push($rows, $rowObj);
             }
