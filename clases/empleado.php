@@ -201,10 +201,14 @@ class Empleado
         $consulta->execute();
         $resultado= $consulta->fetchAll();
         if ($resultado) {
-            $result = new stdclass();
-            $result->mesa = $resultado[0]['mesa'];
-            $result->cantidad = $resultado[0]['cantidad'];
-            $listaAnalytics['9a-mesa_mas_usada'] = $result;
+            $rows = array();
+            foreach($resultado as $row) {
+                $rowObj = new stdclass();
+                $rowObj->mesa = $row['mesa'];
+                $rowObj->cantidad = $row['cantidad'];
+                array_push($rows, $rowObj);
+            }
+            $listaAnalytics['9a-mesa_mas_usada'] = $rows;
         }
 
         /*//9b
@@ -227,10 +231,14 @@ class Empleado
         $consulta->execute();
         $resultado= $consulta->fetchAll();
         if ($resultado) {
-            $result = new stdclass();
-            $result->mesa = $resultado[0]['mesa'];
-            $result->importe = $resultado[0]['importe'];
-            $listaAnalytics['9c-mesa_mas_paga'] = $result;
+            $rows = array();
+            foreach($resultado as $row) {
+                $rowObj = new stdclass();
+                $rowObj->mesa = $row['mesa'];
+                $rowObj->importe = $row['importe'];
+                array_push($rows, $rowObj);
+            }
+            $listaAnalytics['9c-mesa_mas_paga'] = $rows;
         }
 
         /*//9d
@@ -253,10 +261,14 @@ class Empleado
         $consulta->execute();
         $resultado= $consulta->fetchAll();
         if ($resultado) {
-            $result = new stdclass();
-            $result->mesa = $resultado[0]['mesa'];
-            $result->importe = $resultado[0]['importe'];
-            $listaAnalytics['9e-mesa_importe_mas_alto'] = $result;
+            $rows = array();
+            foreach($resultado as $row) {
+                $rowObj = new stdclass();
+                $rowObj->mesa = $row['mesa'];
+                $rowObj->importe = $row['importe'];
+                array_push($rows, $rowObj);
+            }
+            $listaAnalytics['9e-mesa_importe_mas_alto'] = $rows;
         }
 
         /*//9f
