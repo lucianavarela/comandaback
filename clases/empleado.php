@@ -256,24 +256,7 @@ class Empleado
 
         //9e
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT importe, idMesa as mesa FROM comandas"
-        );
-        $consulta->execute();
-        $resultado= $consulta->fetchAll();
-        if ($resultado) {
-            $rows = array();
-            foreach($resultado as $row) {
-                $rowObj = new stdclass();
-                $rowObj->mesa = $row['mesa'];
-                $rowObj->importe = $row['importe'];
-                array_push($rows, $rowObj);
-            }
-            $listaAnalytics['9e-mesa_importe_mas_alto'] = $rows;
-        }
-
-        /*//9f
-        $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT importe, idMesa as mesa FROM comandas WHERE importe is not Null"
+            "SELECT importe, idMesa as mesa FROM comandas WHERE importe is not Null ORDER BY importe DESC LIMIT 1"
         );
         $consulta->execute();
         $resultado= $consulta->fetchAll();
@@ -282,7 +265,20 @@ class Empleado
             $result->mesa = $resultado[0]['mesa'];
             $result->importe = $resultado[0]['importe'];
             $listaAnalytics['9f-mesa_importe_mas_bajo'] = $result;
-        }*/
+        }
+
+        //9f
+        $consulta =$objetoAccesoDato->RetornarConsulta(
+            "SELECT importe, idMesa as mesa FROM comandas WHERE importe is not Null ORDER BY importe LIMIT 1"
+        );
+        $consulta->execute();
+        $resultado= $consulta->fetchAll();
+        if ($resultado) {
+            $result = new stdclass();
+            $result->mesa = $resultado[0]['mesa'];
+            $result->importe = $resultado[0]['importe'];
+            $listaAnalytics['9f-mesa_importe_mas_bajo'] = $result;
+        }
 
         //9g
         $consulta =$objetoAccesoDato->RetornarConsulta(
