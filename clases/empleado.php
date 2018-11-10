@@ -207,7 +207,7 @@ class Empleado
             $listaAnalytics['9a-mesa_mas_usada'] = $result;
         }
 
-        //9b
+        /*//9b
         $consulta =$objetoAccesoDato->RetornarConsulta(
             "SELECT COUNT(id) as cantidad, idMesa as mesa FROM comandas GROUP BY idMesa"
         );
@@ -218,7 +218,7 @@ class Empleado
             $result->mesa = $resultado[0]['mesa'];
             $result->cantidad = $resultado[0]['cantidad'];
             $listaAnalytics['9b-mesa_menos_usada'] = $result;
-        }
+        }*/
 
         //9c
         $consulta =$objetoAccesoDato->RetornarConsulta(
@@ -233,7 +233,7 @@ class Empleado
             $listaAnalytics['9c-mesa_mas_paga'] = $result;
         }
 
-        //9d
+        /*//9d
         $consulta =$objetoAccesoDato->RetornarConsulta(
             "SELECT SUM(importe) as importe, idMesa as mesa FROM comandas WHERE importe is not Null GROUP BY idMesa"
         );
@@ -244,7 +244,7 @@ class Empleado
             $result->mesa = $resultado[0]['mesa'];
             $result->importe = $resultado[0]['importe'];
             $listaAnalytics['9d-mesa_menos_paga'] = $result;
-        }
+        }*/
 
         //9e
         $consulta =$objetoAccesoDato->RetornarConsulta(
@@ -259,7 +259,7 @@ class Empleado
             $listaAnalytics['9e-mesa_importe_mas_alto'] = $result;
         }
 
-        //9f
+        /*//9f
         $consulta =$objetoAccesoDato->RetornarConsulta(
             "SELECT importe, idMesa as mesa FROM comandas WHERE importe is not Null"
         );
@@ -270,7 +270,7 @@ class Empleado
             $result->mesa = $resultado[0]['mesa'];
             $result->importe = $resultado[0]['importe'];
             $listaAnalytics['9f-mesa_importe_mas_bajo'] = $result;
-        }
+        }*/
 
         //9g
         $consulta =$objetoAccesoDato->RetornarConsulta(
