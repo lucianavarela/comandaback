@@ -235,7 +235,7 @@ class Empleado
             foreach($resultado as $row) {
                 $rowObj = new stdclass();
                 $rowObj->mesa = $row['mesa'];
-                $rowObj->importe = $row['importe'];
+                $rowObj->importe = "$".$row['importe'];
                 array_push($rows, $rowObj);
             }
             $listaAnalytics['9c-mesa_mas_paga'] = $rows;
@@ -263,7 +263,7 @@ class Empleado
         if ($resultado) {
             $result = new stdclass();
             $result->mesa = $resultado[0]['mesa'];
-            $result->importe = "$" + $resultado[0]['importe'];
+            $result->importe = $resultado[0]['importe'];
             $listaAnalytics['9e-mesa_importe_mas_alto'] = $result;
         }
 
@@ -276,7 +276,7 @@ class Empleado
         if ($resultado) {
             $result = new stdclass();
             $result->mesa = $resultado[0]['mesa'];
-            $result->importe = "$" + $resultado[0]['importe'];
+            $result->importe = $resultado[0]['importe'];
             $listaAnalytics['9f-mesa_importe_mas_bajo'] = $result;
         }
 
