@@ -141,7 +141,7 @@ class Empleado
             $result = new stdclass();
             $result->pedido = $resultado[0]['pedido'];
             $result->cantidad = $resultado[0]['cantidad'];
-            $listaAnalytics['8a-más_pedido'] = $result;
+            $listaAnalytics['8a-mas_pedido'] = $result;
         }
 
         //8b
