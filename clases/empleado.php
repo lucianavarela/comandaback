@@ -196,7 +196,7 @@ class Empleado
 
         //9a
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT COUNT(id) as cantidad, idMesa as mesa FROM comandas GROUP BY idMesa ORDER BY cantidad DESC LIMIT 1"
+            "SELECT COUNT(id) as cantidad, idMesa as mesa FROM comandas GROUP BY idMesa"
         );
         $consulta->execute();
         $resultado= $consulta->fetchAll();
@@ -209,7 +209,7 @@ class Empleado
 
         //9b
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT COUNT(id) as cantidad, idMesa as mesa FROM comandas GROUP BY idMesa ORDER BY cantidad LIMIT 1"
+            "SELECT COUNT(id) as cantidad, idMesa as mesa FROM comandas GROUP BY idMesa"
         );
         $consulta->execute();
         $resultado= $consulta->fetchAll();
@@ -222,7 +222,7 @@ class Empleado
 
         //9c
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT SUM(importe) as importe, idMesa as mesa FROM comandas WHERE importe is not Null GROUP BY idMesa ORDER BY importe DESC LIMIT 1"
+            "SELECT SUM(importe) as importe, idMesa as mesa FROM comandas WHERE importe is not Null GROUP BY idMesa"
         );
         $consulta->execute();
         $resultado= $consulta->fetchAll();
@@ -235,7 +235,7 @@ class Empleado
 
         //9d
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT SUM(importe) as importe, idMesa as mesa FROM comandas WHERE importe is not Null GROUP BY idMesa ORDER BY importe LIMIT 1"
+            "SELECT SUM(importe) as importe, idMesa as mesa FROM comandas WHERE importe is not Null GROUP BY idMesa"
         );
         $consulta->execute();
         $resultado= $consulta->fetchAll();
@@ -248,7 +248,7 @@ class Empleado
 
         //9e
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT importe, idMesa as mesa FROM comandas ORDER BY importe DESC LIMIT 1"
+            "SELECT importe, idMesa as mesa FROM comandas"
         );
         $consulta->execute();
         $resultado= $consulta->fetchAll();
@@ -261,7 +261,7 @@ class Empleado
 
         //9f
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT importe, idMesa as mesa FROM comandas WHERE importe is not Null ORDER BY importe LIMIT 1"
+            "SELECT importe, idMesa as mesa FROM comandas WHERE importe is not Null"
         );
         $consulta->execute();
         $resultado= $consulta->fetchAll();
