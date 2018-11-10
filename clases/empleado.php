@@ -264,7 +264,7 @@ class Empleado
             $result = new stdclass();
             $result->mesa = $resultado[0]['mesa'];
             $result->importe = $resultado[0]['importe'];
-            $listaAnalytics['9f-mesa_importe_mas_bajo'] = $result;
+            $listaAnalytics['9e-mesa_importe_mas_alto'] = $result;
         }
 
         //9f
