@@ -235,7 +235,7 @@ class Empleado
             foreach($resultado as $row) {
                 $rowObj = new stdclass();
                 $rowObj->mesa = $row['mesa'];
-                $rowObj->importe = "$".$row['importe'];
+                $rowObj->importe = $row['importe'];
                 array_push($rows, $rowObj);
             }
             $listaAnalytics['9c-mesa_mas_paga'] = $rows;
