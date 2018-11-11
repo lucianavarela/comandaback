@@ -87,7 +87,7 @@ class comandaApi extends Comanda implements IApiUsable
 			var_dump($request->getUploadedFiles());
 			print('-------------');
 			var_dump($request->getParsedBody());
-			$archivos = $request->getUploadedFiles();
+			/*$archivos = $request->getUploadedFiles();
 			$destino="./fotos/";
 			$nombreAnterior=$archivos['foto']->getClientFilename();
 			$extension= explode(".", $nombreAnterior)  ;
@@ -98,7 +98,7 @@ class comandaApi extends Comanda implements IApiUsable
 			$objDelaRespuesta = array(
 				'respuesta'=>"Foto cargada.",
 				'status'=>'OK'
-			);
+			);*/
 		} else {
 			$objDelaRespuesta = array(
 				'respuesta'=>"No se pudo encontrar su comanda en el sistema.",
