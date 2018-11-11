@@ -83,6 +83,10 @@ class comandaApi extends Comanda implements IApiUsable
 		$codigo=$args['codigo'];
 		$comanda=Comanda::TraerComanda($codigo);
 		if ($comanda) {
+			print('-------------');
+			var_dump($request->getUploadedFiles());
+			print('-------------');
+			var_dump($request->getParsedBody());
 			$archivos = $request->getUploadedFiles();
 			$destino="./fotos/";
 			$nombreAnterior=$archivos['foto']->getClientFilename();
