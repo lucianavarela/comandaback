@@ -16,6 +16,65 @@ class pedidoApi extends Pedido implements IApiUsable
 		return $newResponse;
 	}
 
+	public function TomarUnPedido($request, $response, $args) {
+		$ArrayDeParametros = $request->getParsedBody();
+		$empleado = $request->getAttribute('empleado');
+		if ($empleado && $ArrayDeParametros['idPedido'] && $ArrayDeParametros['estimacion']) {
+			$empleadoObj = Empleado::TraerEmpleado($empleado->id);
+			if($empleadoObj->estado == 'activo') {
+				$respuesta=$empleadoObj->TomarPedido($ArrayDeParametros['idPedido'], $ArrayDeParametros['estimacion']);
+				//Cargo el log
+				if ($request->getAttribute('empleado')) {
+					$new_log = new Log();
+					$new_log->idEmpleado = $request->getAttribute('empleado')->id;
+					$new_log->accion = "Tomar un pedido";
+					$new_log->GuardarLog();
+				}
+				//--
+				$objDelaRespuesta = array(
+					'mensaje'=>$respuesta,
+					'status'=>'OK'
+				);
+			} else {
+				$objDelaRespuesta = array(
+					'mensaje'=>'No puede tomar un pedido en estado ocupado o deshabilitado.',
+					'status'=>'ERROR'
+				);
+			}
+		} else {
+			$objDelaRespuesta = array(
+				'mensaje'=>'Error, campos faltantes.',
+				'status'=>'ERROR'
+			);
+		}
+		return $response->withJson($objDelaRespuesta, 200);
+	}
+
+	public function EntregarUnPedido($request, $response, $args) {
+		$ArrayDeParametros = $request->getParsedBody();
+		if ($ArrayDeParametros['idPedido']) {
+			$respuesta=Empleado::PedidoPreparado($ArrayDeParametros['idPedido']);
+			//Cargo el log
+			if ($request->getAttribute('empleado')) {
+				$new_log = new Log();	
+				$new_log->idEmpleado = $request->getAttribute('empleado')->id;
+				$new_log->accion = "Entregar pedido listo para servir";
+				$new_log->GuardarLog();
+			}
+			//--
+			$objDelaRespuesta = array(
+				'mensaje'=>$respuesta,
+				'status'=>'OK'
+			);
+		} else {
+			$objDelaRespuesta = array(
+				'mensaje'=>"Debe ingresar el numero del pedido",
+				'status'=>'ERROR'
+			);
+		}
+		return $response->withJson($objDelaRespuesta, 200);
+	}
+
 	public function EntregarACliente($request, $response, $args) {
 		$ArrayDeParametros = $request->getParsedBody();
 		if ($ArrayDeParametros['idPedido']) {

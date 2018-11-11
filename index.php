@@ -32,7 +32,6 @@ $app->group('/api', function () use ($app) {
     $this->post('/', \comandaApi::class . ':CargarUno')->add(\MWparaAutentificar::class . ':VerificarMozo')->add(\MWparaAutentificar::class . ':VerificarToken');
     $this->post('/foto', \comandaApi::class . ':CargarFoto')->add(\MWparaAutentificar::class . ':VerificarMozo')->add(\MWparaAutentificar::class . ':VerificarToken');
     $this->post('/cobrar', \comandaApi::class . ':CobrarUno')->add(\MWparaAutentificar::class . ':VerificarMozo')->add(\MWparaAutentificar::class . ':VerificarToken');
-    $this->post('/cancelar/{id}', \comandaApi::class . ':Cancelar')->add(\MWparaAutentificar::class . ':VerificarAdmin')->add(\MWparaAutentificar::class . ':VerificarToken');
     $this->delete('/{id}', \comandaApi::class . ':BorrarUno');
     $this->put('/{id}', \comandaApi::class . ':ModificarUno');
   });
@@ -41,10 +40,8 @@ $app->group('/api', function () use ($app) {
     $this->get('/{id}', \empleadoApi::class . ':TraerUno')->add(\MWparaAutentificar::class . ':FiltrarSueldos')->add(\MWparaAutentificar::class . ':VerificarAdmin')->add(\MWparaAutentificar::class . ':VerificarToken');
     $this->get('/metricas/', \empleadoApi::class . ':TraerMetricas')->add(\MWparaAutentificar::class . ':VerificarAdmin')->add(\MWparaAutentificar::class . ':VerificarToken');
     $this->post('/', \empleadoApi::class . ':CargarUno');
-    $this->post('/tomar_pedido', \empleadoApi::class . ':TomarUnPedido')->add(\MWparaAutentificar::class . ':VerificarEmpleado')->add(\MWparaAutentificar::class . ':VerificarToken');
-    $this->post('/entregar_pedido', \empleadoApi::class . ':EntregarUnPedido')->add(\MWparaAutentificar::class . ':VerificarEmpleado')->add(\MWparaAutentificar::class . ':VerificarToken');
-    $this->post('/deshabilitar_empleado', \empleadoApi::class . ':DeshabilitarUno')->add(\MWparaAutentificar::class . ':VerificarAdmin')->add(\MWparaAutentificar::class . ':VerificarToken');
-    $this->post('/activar_empleado', \empleadoApi::class . ':ActivarUno')->add(\MWparaAutentificar::class . ':VerificarAdmin')->add(\MWparaAutentificar::class . ':VerificarToken');
+    $this->post('/deshabilitar', \empleadoApi::class . ':DeshabilitarUno')->add(\MWparaAutentificar::class . ':VerificarAdmin')->add(\MWparaAutentificar::class . ':VerificarToken');
+    $this->post('/activar', \empleadoApi::class . ':ActivarUno')->add(\MWparaAutentificar::class . ':VerificarAdmin')->add(\MWparaAutentificar::class . ':VerificarToken');
     $this->delete('/{id}', \empleadoApi::class . ':BorrarUno');
     $this->put('/{id}', \empleadoApi::class . ':ModificarUno');
   });
@@ -60,8 +57,10 @@ $app->group('/api', function () use ($app) {
     $this->get('/', \pedidoApi::class . ':TraerTodos')->add(\MWparaAutentificar::class . ':FiltrarPedidos')->add(\MWparaAutentificar::class . ':VerificarToken');
     $this->get('/{id}', \pedidoApi::class . ':TraerUno')->add(\MWparaAutentificar::class . ':FiltrarPedidos')->add(\MWparaAutentificar::class . ':VerificarToken');
     $this->post('/', \pedidoApi::class . ':CargarUno')->add(\MWparaAutentificar::class . ':VerificarMozo')->add(\MWparaAutentificar::class . ':VerificarToken');
-    $this->post('/entregar_pedido', \pedidoApi::class . ':EntregarACliente')->add(\MWparaAutentificar::class . ':VerificarMozo')->add(\MWparaAutentificar::class . ':VerificarToken');
-    $this->post('/cancelar_pedido/{id}', \pedidoApi::class . ':CancelarUno')->add(\MWparaAutentificar::class . ':VerificarAdmin')->add(\MWparaAutentificar::class . ':VerificarToken');
+    $this->post('/servir', \pedidoApi::class . ':EntregarACliente')->add(\MWparaAutentificar::class . ':VerificarMozo')->add(\MWparaAutentificar::class . ':VerificarToken');
+    $this->post('/cancelar/{id}', \pedidoApi::class . ':CancelarUno')->add(\MWparaAutentificar::class . ':VerificarAdmin')->add(\MWparaAutentificar::class . ':VerificarToken');
+    $this->post('/tomar', \pedidoApi::class . ':TomarUnPedido')->add(\MWparaAutentificar::class . ':VerificarEmpleado')->add(\MWparaAutentificar::class . ':VerificarToken');
+    $this->post('/entregar', \pedidoApi::class . ':EntregarUnPedido')->add(\MWparaAutentificar::class . ':VerificarEmpleado')->add(\MWparaAutentificar::class . ':VerificarToken');
     $this->delete('/{id}', \pedidoApi::class . ':BorrarUno');
     $this->put('/{id}', \pedidoApi::class . ':ModificarUno');
   });
