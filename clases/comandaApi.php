@@ -80,8 +80,8 @@ class comandaApi extends Comanda implements IApiUsable
 	}
 
 	public function CargarFoto($request, $response, $args) {
-		$ArrayDeParametros = $request->getParsedBody();
-		$comanda=Comanda::TraerComanda($ArrayDeParametros['codigoComanda']);
+		$codigo=$args['codigo'];
+		$comanda=Comanda::TraerComanda($codigo);
 		if ($comanda) {
 			$archivos = $request->getUploadedFiles();
 			$destino="./fotos/";
