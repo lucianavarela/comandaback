@@ -105,7 +105,7 @@ class comandaApi extends Comanda implements IApiUsable
 				'status'=>'ERROR'
 			);
 		}
-		return $response->withJson($objDelaRespuesta, 200);
+		//return $response->withJson($objDelaRespuesta, 200);
 	}
 
 	public function BorrarUno($request, $response, $args) {
