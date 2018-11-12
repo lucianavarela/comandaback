@@ -28,7 +28,7 @@ $app->post('/login/', \login::class . ':UserLogin');
 $app->group('/api', function () use ($app) {
   $this->group('/comanda', function () use ($app) {
     $this->get('/', \comandaApi::class . ':TraerTodos');
-    $this->get('/{codigoMesa}/{codigoComanda}', \comandaApi::class . ':TraerUno');
+    $this->get('/cliente/{codigoMesa}/{codigoComanda}', \comandaApi::class . ':TraerUno');
     $this->post('/', \comandaApi::class . ':CargarUno')->add(\MWparaAutentificar::class . ':VerificarMozo')->add(\MWparaAutentificar::class . ':VerificarToken');
     $this->post('/foto/{codigo}', \comandaApi::class . ':CargarFoto')->add(\MWparaAutentificar::class . ':VerificarMozo')->add(\MWparaAutentificar::class . ':VerificarToken');
     $this->post('/cobrar', \comandaApi::class . ':CobrarUno')->add(\MWparaAutentificar::class . ':VerificarMozo')->add(\MWparaAutentificar::class . ':VerificarToken');
