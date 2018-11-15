@@ -81,16 +81,12 @@ class comandaApi extends Comanda implements IApiUsable
 
 	public function CargarFoto($request, $response, $args) {
 		$codigo=$args['codigo'];
+		$ArrayDeParametros = $request->getParsedBody();
 		$comanda=Comanda::TraerComanda($codigo);
 		if ($comanda) {
-			$archivos = $request->getUploadedFiles();
-			$destino="./fotos/";
-			$nombreAnterior=$archivos['foto']->getClientFilename();
-			$extension= explode(".", $nombreAnterior)  ;
-			$extension=array_reverse($extension);
-			$comanda->foto = $comanda->codigo.".".$extension[0];
+			$comanda->foto = $ArrayDeParametros['foto'];
+			$comanda->tipoFoto = $ArrayDeParametros['tipo'];
 			$comanda->GuardarComanda();
-			$archivos['foto']->moveTo($destino.$comanda->codigo.".".$extension[0]);
 			$objDelaRespuesta = array(
 				'respuesta'=>"Foto cargada.",
 				'status'=>'OK'
@@ -141,6 +137,7 @@ class comandaApi extends Comanda implements IApiUsable
 		$micomanda->importe=$ArrayDeParametros['importe'];
 		$micomanda->idMesa=$ArrayDeParametros['idMesa'];
 		$micomanda->foto=$ArrayDeParametros['foto'];
+		$micomanda->tipoFoto=$ArrayDeParametros['tipoFoto'];
 		$micomanda->GuardarComanda();
 		//Cargo el log
 		if ($request->getAttribute('empleado')) {

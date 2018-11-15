@@ -7,6 +7,7 @@ class Comanda
     public $importe;
     public $idMesa;
     public $foto;
+    public $tipoFoto;
     
     public function GetNombreCliente() {
         return $this->nombreCliente;
@@ -23,6 +24,9 @@ class Comanda
     public function GetFoto() {
         return $this->foto;
     }
+    public function GetTipoFoto() {
+        return $this->tipoFoto;
+    }
     public function SetNombreCliente($value) {
         $this->nombreCliente = $value;
     }
@@ -38,6 +42,9 @@ class Comanda
     public function SetFoto($value) {
         $this->foto = $value;
     }
+    public function SetTipoFoto($value) {
+        $this->tipoFoto = $value;
+    }
 
     public function __construct(){}
     
@@ -48,12 +55,13 @@ class Comanda
             $mesa->SetEstado('con clientes esperando pedido');
             $mesa->GuardarMesa();
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into comandas (nombreCliente,codigo,idMesa,foto)
+            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into comandas (nombreCliente,codigo,idMesa,foto,tipoFoto)
                 values(
                 '$this->nombreCliente',
                 '$nuevoCodigo',
                 '$this->idMesa',
-                '$this->foto'
+                '$this->foto',
+                '$this->tipoFoto'
                 );");
             $consulta->execute();
             return $nuevoCodigo;
@@ -70,7 +78,8 @@ class Comanda
             codigo='$this->codigo',
             importe='$this->importe',
             idMesa='$this->idMesa',
-            foto='$this->foto'
+            foto='$this->foto',
+            tipoFoto='$this->tipoFoto'
             WHERE id=$this->id;");
         return $consulta->execute();
     }
