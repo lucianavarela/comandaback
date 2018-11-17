@@ -53,7 +53,7 @@ class comandaApi extends Comanda implements IApiUsable
 		if ($codigo) {
 			if (Pedido::CargarPedidos($ArrayDeParametros, $codigo)) {
 				$objDelaRespuesta = array(
-					'respuesta'=>"Su comanda ha sido ingresada! Codigo de seguimiento: $codigo",
+					'mensaje'=>"Su comanda ha sido ingresada! Codigo de seguimiento: $codigo",
 					'status'=>'OK'
 				);
 				//Cargo el log
@@ -66,13 +66,13 @@ class comandaApi extends Comanda implements IApiUsable
 				//--
 			} else {
 				$objDelaRespuesta = array(
-					'respuesta'=>'Su comanda ha sido ingresada, pero no se han podido cargar los pedidos de esta comanda (faltan campos)',
+					'mensaje'=>'Su comanda ha sido ingresada, pero no se han podido cargar los pedidos de esta comanda (faltan campos)',
 					'status'=>'ERROR'
 				);
 			}
 		} else {
 			$objDelaRespuesta = array(
-				'respuesta'=>"Esta mesa no está cargada en el sistema o está ocupada.",
+				'mensaje'=>"Esta mesa no está cargada en el sistema o está ocupada.",
 				'status'=>'ERROR'
 			);
 		}
@@ -88,12 +88,12 @@ class comandaApi extends Comanda implements IApiUsable
 			$comanda->tipoFoto = $ArrayDeParametros['tipo'];
 			$comanda->GuardarComanda();
 			$objDelaRespuesta = array(
-				'respuesta'=>"Foto cargada.",
+				'mensaje'=>"Foto cargada.",
 				'status'=>'OK'
 			);
 		} else {
 			$objDelaRespuesta = array(
-				'respuesta'=>"No se pudo encontrar su comanda en el sistema.",
+				'mensaje'=>"No se pudo encontrar su comanda en el sistema.",
 				'status'=>'ERROR'
 			);
 		}
@@ -116,12 +116,12 @@ class comandaApi extends Comanda implements IApiUsable
 			}
 			//--
 			$objDelaRespuesta = array(
-				'respuesta'=>"Comanda eliminada.",
+				'mensaje'=>"Comanda eliminada.",
 				'status'=>'OK'
 			);
 		} else {
 			$objDelaRespuesta = array(
-				'respuesta'=>"Error eliminando la comanda.",
+				'mensaje'=>"Error eliminando la comanda.",
 				'status'=>'ERROR'
 			);
 		}
@@ -165,18 +165,18 @@ class comandaApi extends Comanda implements IApiUsable
 				}
 				//--
 				$objDelaRespuesta = array(
-					'respuesta'=>"Clientes pagando.",
+					'mensaje'=>"Clientes pagando.",
 					'status'=>'OK'
 				);
 			} else {
 				$objDelaRespuesta = array(
-					'respuesta'=>$respuesta,
+					'mensaje'=>$respuesta,
 					'status'=>'ERROR'
 				);
 			}
 		} else {
 			$objDelaRespuesta = array(
-				'respuesta'=>'Error encontrando la comanda seleccionada.',
+				'mensaje'=>'Error encontrando la comanda seleccionada.',
 				'status'=>'ERROR'
 			);
 		}
