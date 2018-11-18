@@ -252,7 +252,7 @@ class Pedido
         $todos_pedidos_listos = true;
         $pedidos_pendientes_de_comanda = Pedido::TraerPedidosPorComanda($comanda->codigo);
         foreach ($pedidos_pendientes_de_comanda as $pedido) {
-            if (!($pedido->estado == 'entregado')) {
+            if ($pedido->estado != 'entregado' && $pedido->estado != 'cancelado') {
                 $todos_pedidos_listos = false;
                 break;
             }
