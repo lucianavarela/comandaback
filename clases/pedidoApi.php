@@ -101,8 +101,8 @@ class pedidoApi extends Pedido implements IApiUsable
 	}
 
 	public function CancelarUno($request, $response, $args) {
-		if ($args['id']) {
-			$pedidoObj=Pedido::TraerPedido($args['id']);
+		if ($ArrayDeParametros['idPedido']) {
+			$pedidoObj=Pedido::TraerPedido($ArrayDeParametros['idPedido']);
 			$respuesta = $pedidoObj->Cancelar();
 			//Cargo el log
 			if ($request->getAttribute('empleado')) {
