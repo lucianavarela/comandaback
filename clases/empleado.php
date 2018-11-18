@@ -159,7 +159,8 @@ class Empleado
 
         //8c
         $consulta =$objetoAccesoDato->RetornarConsulta(
-            "SELECT id, idEmpleado, estimacion, fechaEntregado, TIMESTAMPDIFF(MINUTE, estimacion, fechaEntregado) AS diff FROM pedidos WHERE TIMESTAMPDIFF(MINUTE, estimacion, fechaEntregado) > 0"
+            "SELECT p.id, e.usuario, p.estimacion, p.fechaEntregado, TIMESTAMPDIFF(MINUTE, estimacion, fechaEntregado) AS diff 
+            FROM pedidos p INNER JOIN empleados e ON e.id = p.idEmpleado WHERE TIMESTAMPDIFF(MINUTE, estimacion, fechaEntregado) > 0"
         );
         $consulta->execute();
         $resultado= $consulta->fetchAll();
@@ -168,7 +169,7 @@ class Empleado
             foreach($resultado as $row) {
                 $rowObj = new stdclass();
                 $rowObj->id = $row['id'];
-                $rowObj->empleado = $row['idEmpleado'];
+                $rowObj->empleado = $row['usuario'];
                 $rowObj->estimacion = $row['estimacion'];
                 $rowObj->entrega = $row['fechaEntregado'];
                 $rowObj->demora = $row['diff'] . " minutos";
